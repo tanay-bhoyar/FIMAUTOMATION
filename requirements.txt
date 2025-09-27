@@ -1,7 +1,5 @@
 streamlit
 pandas
 openpyxl
-python-docx-template
 matplotlib
 docxtpl
-template.docx
