@@ -32,7 +32,7 @@ with st.form("report_form"):
 
     
 
-    st.header("2. Usage Method Prefrence")
+    st.header("2. Usage Method Preference")
     checkbox_1=st.checkbox("Embedded in Teaching - learning process",value=False)
     checkbox_2=st.checkbox("Home assignments with monthly Report check",value=False)
     checkbox_3=st.checkbox("Practice Tests & Assessments",value=False)
