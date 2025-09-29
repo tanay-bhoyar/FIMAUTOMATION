@@ -24,9 +24,21 @@ with st.form("report_form"):
     with col2:
         principal_name = st.text_input("Principal's Name", placeholder="e.g., Dr. Jane Doe")
 
-    coordinator_name = st.text_input("FIM Coordinator's Name", placeholder='e.g., Dr. Chota lund')
+    coordinator_name = st.text_input("FIM Coordinator's Name", placeholder='e.g., Coordinator Name')
 
-    st.header("2. Upload Excel Files")
+    st.header("2. Usage Method Prefrence")
+    checkbox_1=st.checkbox("Embedded in Teaching - learning process",value=False)
+    checkbox_2=st.checkbox("Home assignments with monthly Report check",value=False)
+    checkbox_3=st.checkbox("Practice Tests & Assessments",value=False)
+    checkbox_4=st.checkbox("Period in class/computer lab",value=False)
+    checkbox_5=st.checkbox("Motivational Initiatives",value=False)
+    checkbox_6=st.checkbox("Other (please specify)",value=False)
+
+    other_method = st.text_input("Other",placeholder='other method',value="")
+
+    checkboxes=[checkbox_1,checkbox_2,checkbox_3,checkbox_4,checkbox_5,checkbox_6]
+
+    st.header("3. Upload Excel Files")
     # The file_uploader returns an in-memory file object that pandas can read directly
     school_summary_file = st.file_uploader("School Summary File", type=["xlsx"])
     goals_data_file = st.file_uploader("Goals by Team File", type=["xlsx"])
@@ -53,7 +65,7 @@ if submitted:
             # Show a spinner to let the user know something is happening
             with st.spinner("Analyzing data and building your report... This may take a moment."):
                 # Call your existing function from script.py
-                report_buffer = script(school_name,principal_name,coordinator_name,goals_data_file,player_data_file,school_summary_file,educator_data_file,family_data_file)
+                report_buffer = script(school_name,principal_name,coordinator_name,checkboxes,other_method,goals_data_file,player_data_file,school_summary_file,educator_data_file,family_data_file)
 
             st.success("✅ Report generated successfully!")
 

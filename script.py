@@ -9,16 +9,18 @@ from docx.shared import Mm
 import matplotlib.pyplot as plt
 import textwrap
 from datetime import date
+from datetime import datetime
+import calendar
 
 
 
 
-
-def script(school_name,principal_name,coordinator_name,goals_path,
+def script(school_name,principal_name,coordinator_name,checkboxes,other_method,goals_path,
             player_data_path,
             summary_path,
             educator_path,
             family_path):
+    print(checkboxes)
     document = DocxTemplate("part1Template[1].docx")
     documentkg1=DocxTemplate('part2Template[1].docx')
     documentkg2=DocxTemplate('part2Template[1].docx')
@@ -31,11 +33,19 @@ def script(school_name,principal_name,coordinator_name,goals_path,
     document7=DocxTemplate('part2Template[1].docx')
     document8=DocxTemplate('part2Template[1].docx') 
     document9 = DocxTemplate('part3.docx')
-    today_date = date.today()
     document_list=[]
     json_object = {}
     object_list=[]
-    
+
+    prefrence_list=["Embedded in Teaching - learning process","Home assignments with monthly Report check","Practice Tests & Assessments","Period in class/computer lab","Motivational Initiatives"]
+    final_list=[]
+    for i in range (0,len(checkboxes)-1):
+
+        if(checkboxes[i] is True and len(final_list)<3):
+            final_list.append(prefrence_list[i])
+    print(other_method)
+    if(checkboxes[5] is True and len(final_list)<3):
+        final_list.append(other_method)
     Goals_data=pd.read_excel(goals_path)
     player_data = pd.read_excel(player_data_path)
     School_Summary = pd.read_excel(summary_path)
@@ -68,8 +78,14 @@ def script(school_name,principal_name,coordinator_name,goals_path,
 
     time_saved=worksheets_saved//80
     json_object['p8']=str(time_saved)
-    json_object['p11']=today_date
+    json_object['p11']= datetime.now().strftime("%d-%m-%Y")
     json_object['p_12']=coordinator_name
+
+    print(final_list)
+
+    json_object['p13']=final_list[0]
+    json_object['p14']=final_list[1]
+    json_object['p15']=final_list[2]
 
    
 
@@ -80,6 +96,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(documentkg1,createTable(sorted_assissment_report_kg1,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='KG-1'
         temp['p_25']='Early'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
         
     Goal_Index_kg1=Goals_data[Goals_data['Class Name'].str.startswith('KG-1')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -97,6 +115,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(documentkg2,createTable(sorted_assissment_report_kg2,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='KG-2'
         temp['p_25']='Early'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_kg2=Goals_data[Goals_data['Class Name'].str.startswith('KG-2')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -113,6 +133,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document1,createTable(sorted_assissment_report_1,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='1'
         temp['p_25']='Early'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_1=Goals_data[Goals_data['Class Name'].str.startswith('1')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -129,6 +151,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document2,createTable(sorted_assissment_report_2,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='2'
         temp['p_25']='Early'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_2=Goals_data[Goals_data['Class Name'].str.startswith('2')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -145,6 +169,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document3,createTable(sorted_assissment_report_3,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='3'
         temp['p_25']='Elementary'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_3=Goals_data[Goals_data['Class Name'].str.startswith('3')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -161,6 +187,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document4,createTable(sorted_assissment_report_4,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='4'
         temp['p_25']='Elementary'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_4=Goals_data[Goals_data['Class Name'].str.startswith('4')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -177,6 +205,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document5,createTable(sorted_assissment_report_5,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='5'
         temp['p_25']='Intermediate'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_5=Goals_data[Goals_data['Class Name'].str.startswith('5')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -193,6 +223,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document6,createTable(sorted_assissment_report_6,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='6'
         temp['p_25']='Intermediate'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_6=Goals_data[Goals_data['Class Name'].str.startswith('6')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -210,6 +242,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document7,createTable(sorted_assissment_report_7,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='7'
         temp['p_25']='Advanced'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_7=Goals_data[Goals_data['Class Name'].str.startswith('7')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
@@ -226,6 +260,8 @@ def script(school_name,principal_name,coordinator_name,goals_path,
         temp['p_24']=InlineImage(document8,createTable(sorted_assissment_report_8,40,10,1,1,28,True),width=Mm(180),height=Mm(65))
         temp['p_20']='8'
         temp['p_25']='Advanced'
+        temp['p_23']=datetime.now().year
+        temp['p21']="As On "+calendar.month_abbr[datetime.now().month]+" "+str(datetime.now().day)+", "+str(datetime.now().year)
         object_list.append(temp)
 
     Goal_Index_8=Goals_data[Goals_data['Class Name'].str.startswith('8')][['Class Name','Goals Index (out of 100)','Activity (out of 25)','Fact Fluency (out of 25)']]
