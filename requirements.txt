@@ -3,5 +3,3 @@ pandas
 openpyxl
 matplotlib
 docxtpl
-datetime
-calendar
