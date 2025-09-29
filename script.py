@@ -20,7 +20,6 @@ def script(school_name,principal_name,coordinator_name,checkboxes,other_method,g
             summary_path,
             educator_path,
             family_path):
-    print(checkboxes)
     document = DocxTemplate("part1Template[1].docx")
     documentkg1=DocxTemplate('part2Template[1].docx')
     documentkg2=DocxTemplate('part2Template[1].docx')
@@ -43,7 +42,6 @@ def script(school_name,principal_name,coordinator_name,checkboxes,other_method,g
 
         if(checkboxes[i] is True and len(final_list)<3):
             final_list.append(prefrence_list[i])
-    print(other_method)
     if(checkboxes[5] is True and len(final_list)<3):
         final_list.append(other_method)
     Goals_data=pd.read_excel(goals_path)
