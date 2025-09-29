@@ -15,7 +15,7 @@ import calendar
 
 
 
-def script(school_name,principal_name,coordinator_name,checkboxes,other_method,goals_path,
+def script(report_date,school_name,principal_name,coordinator_name,checkboxes,other_method,goals_path,
             player_data_path,
             summary_path,
             educator_path,
@@ -65,7 +65,7 @@ def script(school_name,principal_name,coordinator_name,checkboxes,other_method,g
     # Representation of top 5
     top_5_teams = School_Summary.sort_values(by='Est Math Problems Solved', ascending=False).head(5)[['Name', 'Class Name']]
 
-
+    json_object['p_date']=report_date
     json_object['p_18']=InlineImage(document,createTable(top_5_teams,20,5,0.75,1,35,False),width=Mm(100))
 
     top_5_player = player_data.sort_values(by='Stickers', ascending=False).head(5)[['User ID', 'First Name', 'Last Name','Display Name']]

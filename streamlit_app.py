@@ -20,11 +20,17 @@ with st.form("report_form"):
     # Use columns for a cleaner layout
     col1, col2 = st.columns(2)
     with col1:
-        school_name = st.text_input("School Name", placeholder="e.g., Amity International School")
+        school_name = st.text_input("School Name", placeholder="School's Name")
     with col2:
-        principal_name = st.text_input("Principal's Name", placeholder="e.g., Dr. Jane Doe")
+        principal_name = st.text_input("Principal's Name", placeholder="Principal's Name")
 
-    coordinator_name = st.text_input("FIM Coordinator's Name", placeholder='e.g., Coordinator Name')
+    col3, col4 = st.columns(2)
+    with col3:
+        coordinator_name = st.text_input("FIM Coordinator's Name", placeholder='Coordinator Name')
+    with col4:
+        report_date = st.text_input("School Progress Report Date",placeholder='Date Range')
+
+    
 
     st.header("2. Usage Method Prefrence")
     checkbox_1=st.checkbox("Embedded in Teaching - learning process",value=False)
@@ -65,7 +71,7 @@ if submitted:
             # Show a spinner to let the user know something is happening
             with st.spinner("Analyzing data and building your report... This may take a moment."):
                 # Call your existing function from script.py
-                report_buffer = script(school_name,principal_name,coordinator_name,checkboxes,other_method,goals_data_file,player_data_file,school_summary_file,educator_data_file,family_data_file)
+                report_buffer = script(report_date,school_name,principal_name,coordinator_name,checkboxes,other_method,goals_data_file,player_data_file,school_summary_file,educator_data_file,family_data_file)
 
             st.success("✅ Report generated successfully!")
 
