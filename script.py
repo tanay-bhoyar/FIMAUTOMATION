@@ -15,7 +15,13 @@ import calendar
 
 
 
-def script(report_date,school_name,principal_name,coordinator_name,checkboxes,other_method,goals_path,
+def script(report_date,
+           school_name,
+           principal_name,
+           coordinator_name,
+           checkboxes,
+           other_method,
+           goals_path,
             player_data_path,
             summary_path,
             educator_path,
