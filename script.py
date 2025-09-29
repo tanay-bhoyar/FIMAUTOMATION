@@ -14,7 +14,7 @@ from datetime import date
 
 
 
-def script(school_name,principal_name,goals_path,
+def script(school_name,principal_name,coordinator_name,goals_path,
             player_data_path,
             summary_path,
             educator_path,
@@ -69,7 +69,7 @@ def script(school_name,principal_name,goals_path,
     time_saved=worksheets_saved//80
     json_object['p8']=str(time_saved)
     json_object['p11']=today_date
-    json_object['p_12']="Chota lund"
+    json_object['p_12']=coordinator_name
 
    
 
